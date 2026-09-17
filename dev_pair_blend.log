@@ -1,0 +1,32 @@
+pip_system_certs: ERROR: could not inject truststore: [ASN1: NOT_ENOUGH_DATA] not enough data (_ssl.c:4030)
+v3 blend 0.7689 top1acc 0.5756
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+blend + pair LThigh/LAnkle (all top-2 rows 354) OOF 0.7661
+blend + pair RWrist/RUpArm (all top-2 rows 780) OOF 0.7664
+blend + leg only 0.7661 top1acc 0.5722
+leg reranker margin<0.2 rows 34 OOF 0.7687
+leg reranker margin<0.4 rows 87 OOF 0.7684
+leg reranker margin<0.6 rows 121 OOF 0.7678
+leg reranker margin<1.0 rows 167 OOF 0.7668
+leg reranker margin<2.0 rows 346 OOF 0.7661
+NESTED leg reranker (threshold chosen per fold) 0.7685 thresholds [0.0, 0.0, 0.2, 0.0, 0.0]
+EXIT 0

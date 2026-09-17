@@ -1,0 +1,34 @@
+pip_system_certs: ERROR: could not inject truststore: [ASN1: NOT_ENOUGH_DATA] not enough data (_ssl.c:4030)
+long format (10520, 168)
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\lightgbm\sklearn.py:861: UserWarning: Found 'eval_at' in params. Will use it instead of 'eval_at' argument
+  _log_warning(f"Found '{alias}' in params. Will use it instead of 'eval_at' argument")
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRanker was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\lightgbm\sklearn.py:861: UserWarning: Found 'eval_at' in params. Will use it instead of 'eval_at' argument
+  _log_warning(f"Found '{alias}' in params. Will use it instead of 'eval_at' argument")
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRanker was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\lightgbm\sklearn.py:861: UserWarning: Found 'eval_at' in params. Will use it instead of 'eval_at' argument
+  _log_warning(f"Found '{alias}' in params. Will use it instead of 'eval_at' argument")
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRanker was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\lightgbm\sklearn.py:861: UserWarning: Found 'eval_at' in params. Will use it instead of 'eval_at' argument
+  _log_warning(f"Found '{alias}' in params. Will use it instead of 'eval_at' argument")
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRanker was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\lightgbm\sklearn.py:861: UserWarning: Found 'eval_at' in params. Will use it instead of 'eval_at' argument
+  _log_warning(f"Found '{alias}' in params. Will use it instead of 'eval_at' argument")
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRanker was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\lightgbm\sklearn.py:861: UserWarning: Found 'eval_at' in params. Will use it instead of 'eval_at' argument
+  _log_warning(f"Found '{alias}' in params. Will use it instead of 'eval_at' argument")
+[A] metric-aligned LambdaMART OOF 0.7610 top1acc 0.5618  (v3 LGB member 0.7640)
+    v3 ref 0.7689
+    v3 + 0.2*lambdamart -> 0.7716
+    v3 + 0.3*lambdamart -> 0.7718
+    v3 + 0.4*lambdamart -> 0.7724
+
+[B] an__base_xsite: raw 0.7640 -> per-site isotonic 0.7628 (top1 0.5646 -> 0.5627)
+[B] v1__nn: raw 0.7448 -> per-site isotonic 0.7420 (top1 0.5480 -> 0.5456)
+[B] v3 with both members calibrated: 0.7694 (v3 0.7689)
+EXIT 0

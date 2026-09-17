@@ -1,0 +1,160 @@
+# made by - Karthik
+import sys
+import json
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import lightgbm as lgb
+
+SITES = ("RWrist", "RUpArm", "Waist", "LThigh", "LAnkle")
+GAINS = np.array([1.0, 0.70, 0.45, 0.25, 0.10], dtype=np.float32)
+LEADS = (1.0, 3.0, 5.0, 7.0)
+DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+NN_SEEDS = (0, 1, 2)
+NN_EPOCHS = 80
+NN_BATCH = 64
+NN_LR = 2e-3
+NN_TEMP = 0.15
+NN_NOISE = 0.10
+LGB_ROUNDS = 300
+BLEND_NN = 0.5
+
+torch.backends.cudnn.benchmark = False
+torch.backends.cudnn.deterministic = True
+
+
+def parse_seq(series):
+    return np.stack([np.asarray(json.loads(s), dtype=np.float32) for s in series]).reshape(-1, 8, 45)
+
+
+def relevance(preds):
+    R = np.zeros((len(preds), 5), dtype=np.float32)
+    for i, p in enumerate(preds):
+        for r, s in enumerate(str(p).split(">")):
+            R[i, SITES.index(s)] = GAINS[r]
+    return R
+
+
+def site_stats(X):
+    n = len(X)
+    Xs = X.reshape(n, 8, 5, 9).transpose(0, 2, 1, 3)
+    norms = np.stack([np.linalg.norm(Xs[..., k:k + 3], axis=-1) for k in (0, 3, 6)], -1)
+    parts = [
+        Xs.std(2),
+        Xs.mean(2),
+        Xs[:, :, -1] - Xs[:, :, 0],
+        np.abs(np.diff(Xs, axis=2)).mean(2),
+        Xs[:, :, -2:].mean(2) - Xs[:, :, :-2].mean(2),
+        norms.std(2),
+        norms.mean(2),
+        np.abs(np.diff(norms, axis=2)).mean(2),
+    ]
+    return Xs, np.concatenate(parts, -1).astype(np.float32)
+
+
+def lead_onehot(lead):
+    return np.stack([(lead == l).astype(np.float32) for l in LEADS], 1)
+
+
+class SiteRanker(nn.Module):
+    def __init__(self, n_stat, d=64):
+        super().__init__()
+        self.seq = nn.Sequential(nn.Linear(72, d), nn.GELU(), nn.Dropout(0.1))
+        self.stat = nn.Sequential(nn.Linear(n_stat, d), nn.GELU(), nn.Dropout(0.1))
+        self.site = nn.Parameter(torch.zeros(5, d))
+        self.lead = nn.Linear(4, d)
+        layer = nn.TransformerEncoderLayer(d, 4, 2 * d, dropout=0.1, batch_first=True, norm_first=True)
+        self.enc = nn.TransformerEncoder(layer, 2)
+        self.head = nn.Sequential(nn.LayerNorm(d), nn.Linear(d, 1))
+
+    def forward(self, seq, stat, lead):
+        h = self.seq(seq) + self.stat(stat) + self.site[None] + self.lead(lead)[:, None]
+        return self.head(self.enc(h)).squeeze(-1)
+
+
+def fit_predict_nn(Xtr, Rtr, ltr, Xte, lte, seed):
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    Str, Ftr = site_stats(Xtr)
+    Ste, Fte = site_stats(Xte)
+    mu = Ftr.reshape(-1, Ftr.shape[-1]).mean(0)
+    sd = Ftr.reshape(-1, Ftr.shape[-1]).std(0) + 1e-6
+    Ftr = (Ftr - mu) / sd
+    Fte = (Fte - mu) / sd
+    t = lambda a: torch.tensor(a, dtype=torch.float32, device=DEVICE)
+    seq_tr, st_tr, ld_tr, y = t(Str.reshape(len(Str), 5, 72)), t(Ftr), t(lead_onehot(ltr)), t(Rtr)
+    seq_te, st_te, ld_te = t(Ste.reshape(len(Ste), 5, 72)), t(Fte), t(lead_onehot(lte))
+    target = F.softmax(y / NN_TEMP, 1)
+    model = SiteRanker(Ftr.shape[-1]).to(DEVICE)
+    opt = torch.optim.AdamW(model.parameters(), lr=NN_LR, weight_decay=1e-2)
+    steps = NN_EPOCHS * ((len(Str) + NN_BATCH - 1) // NN_BATCH)
+    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=NN_LR, total_steps=steps + 1)
+    g = torch.Generator(device="cpu").manual_seed(seed)
+    for _ in range(NN_EPOCHS):
+        model.train()
+        perm = torch.randperm(len(Str), generator=g).to(DEVICE)
+        for i in range(0, len(Str), NN_BATCH):
+            b = perm[i:i + NN_BATCH]
+            sq = seq_tr[b] + NN_NOISE * torch.randn_like(seq_tr[b])
+            s = model(sq, st_tr[b], ld_tr[b])
+            loss = -(target[b] * F.log_softmax(s, 1)).sum(1).mean() + F.mse_loss(torch.sigmoid(s), y[b])
+            opt.zero_grad()
+            loss.backward()
+            opt.step()
+            sched.step()
+    model.eval()
+    with torch.no_grad():
+        return torch.log_softmax(model(seq_te, st_te, ld_te), 1).cpu().numpy()
+
+
+def fit_predict_lgb(Xtr, Rtr, ltr, Xte, lte):
+    _, Ftr = site_stats(Xtr)
+    _, Fte = site_stats(Xte)
+    def flat(Fs, X, l):
+        n = len(Fs)
+        rel = Fs / (np.abs(Fs).mean(1, keepdims=True) + 1e-6)
+        return np.concatenate([Fs.reshape(n, -1), rel.reshape(n, -1), X[:, -1], l[:, None]], 1)
+    A, B = flat(Ftr, Xtr, ltr), flat(Fte, Xte, lte)
+    out = np.zeros((len(B), 5), dtype=np.float32)
+    for s in range(5):
+        m = lgb.LGBMRegressor(n_estimators=LGB_ROUNDS, learning_rate=0.03, num_leaves=15, min_child_samples=20,
+                              subsample=0.8, subsample_freq=1, colsample_bytree=0.5, random_state=s,
+                              n_jobs=4, deterministic=True, force_row_wise=True, verbose=-1)
+        m.fit(A, Rtr[:, s])
+        out[:, s] = m.predict(B)
+    return out
+
+
+def row_rank(S):
+    return np.argsort(np.argsort(S, 1), 1).astype(np.float32) / 4.0
+
+
+def fit_predict(Xtr, Rtr, ltr, Xte, lte):
+    nn_scores = np.mean([fit_predict_nn(Xtr, Rtr, ltr, Xte, lte, s) for s in NN_SEEDS], 0)
+    lgb_scores = fit_predict_lgb(Xtr, Rtr, ltr, Xte, lte)
+    z = lambda S: (S - S.mean(1, keepdims=True)) / (S.std(1, keepdims=True) + 1e-6)
+    return BLEND_NN * z(nn_scores) + (1 - BLEND_NN) * z(lgb_scores), nn_scores, lgb_scores
+
+
+def to_strings(S):
+    order = np.argsort(-S, 1, kind="stable")
+    return [">".join(SITES[j] for j in o) for o in order]
+
+
+if __name__ == "__main__":
+    public_dir = Path(sys.argv[1])
+    submission_out = Path(sys.argv[2])
+    train = pd.read_csv(public_dir / "train.csv")
+    test = pd.read_csv(public_dir / "test.csv")
+    Xtr, Xte = parse_seq(train.sensor_sequence), parse_seq(test.sensor_sequence)
+    Rtr = relevance(train.prediction.values)
+    ltr = train.lead_offset_s.values.astype(np.float32)
+    lte = test.lead_offset_s.values.astype(np.float32)
+    S, _, _ = fit_predict(Xtr, Rtr, ltr, Xte, lte)
+    submission = pd.DataFrame({"id": test.id.values, "prediction": to_strings(S)})
+    submission_out.parent.mkdir(parents=True, exist_ok=True)
+    submission.to_csv(submission_out, index=False)
+    print("wrote", len(submission), "rows")

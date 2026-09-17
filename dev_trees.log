@@ -1,0 +1,70 @@
+pip_system_certs: ERROR: could not inject truststore: [ASN1: NOT_ENOUGH_DATA] not enough data (_ssl.c:4030)
+features (2104, 681) | v4 ref 0.7738 | ET ref 0.7677
+[et_600_l1_mf02] OOF 0.7683 top1 0.5675 | in v4 slot 0.7742 per-fold [0.0032, -0.0045, -0.0005, 0.0026, 0.0008] (3/5 up)
+[et_600_l2_mf01] OOF 0.7669 top1 0.5699 | in v4 slot 0.7732 per-fold [0.0035, -0.0013, -0.0044, -0.0015, 0.0007] (2/5 up)
+[et_600_l2_mf04] OOF 0.7669 top1 0.5680 | in v4 slot 0.7737 per-fold [0.0016, -0.0012, 0.0015, -0.0016, -0.001] (2/5 up)
+[et_600_l5_mf02] OOF 0.7649 top1 0.5637 | in v4 slot 0.7740 per-fold [0.0011, -0.0022, 0.0002, -0.0002, 0.0023] (3/5 up)
+[rf_400_l2_mf03] OOF 0.7676 top1 0.5694 | in v4 slot 0.7757 per-fold [0.008, -0.001, 0.0023, 0.0036, -0.004] (3/5 up)
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+[lgb_extra_trees_mode] OOF 0.7594 top1 0.5561 | in v4 slot 0.7664
+
+best randomized-tree member: et_600_l1_mf02 (0.7683)
+=== ET-heavy blends with the best member ===
+  w 0.4: OOF 0.7740 top1 0.5837 per-fold [0.0031, -0.005, -0.0005, 0.0027, 0.0007] (3/5 up)
+  w 0.5: OOF 0.7739 top1 0.5851 per-fold [0.0014, 0.0003, -0.0019, 0.0009, -0.0002] (3/5 up)
+  w 0.6: OOF 0.7733 top1 0.5837 per-fold [-0.0024, 0.0002, 0.0012, 0.0008, -0.0028] (3/5 up)
+  w 0.7: OOF 0.7711 top1 0.5751 per-fold [-0.0035, -0.0067, 0.004, -0.0021, -0.0057] (1/5 up)
+=== two randomized members together (best + original ET) ===
+  best 0.3 + et0 0.3: OOF 0.7724 per-fold [-0.0033, -0.0007, 0.0004, -0.0002, -0.0035] (1/5 up)
+  best 0.25 + et0 0.25: OOF 0.7733 per-fold [-0.0014, -0.0006, 0.0001, -0.0001, -0.0007] (1/5 up)
+  best 0.35 + et0 0.25: OOF 0.7725 per-fold [-0.0035, -0.0015, 0.0012, 0.0004, -0.0033] (2/5 up)
+EXIT 0

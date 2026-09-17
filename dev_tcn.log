@@ -1,0 +1,34 @@
+pip_system_certs: ERROR: could not inject truststore: [ASN1: NOT_ENOUGH_DATA] not enough data (_ssl.c:4030)
+v3 ref OOF 0.7689 top1acc 0.5756
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\torch\nn\modules\transformer.py:385: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(
+C:\Users\srika\anaconda3\envs\max\lib\site-packages\torch\nn\modules\transformer.py:385: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(
+  tcn_stats fold0 0.7356
+  tcn_stats fold1 0.7582
+  tcn_stats fold2 0.7352
+  tcn_stats fold3 0.7109
+  tcn_stats fold4 0.7293
+[tcn_stats] OOF 0.7339 top1acc 0.5242
+   v3 + 0.2*tcn_stats -> OOF 0.7681 top1acc 0.5794
+   v3 + 0.3*tcn_stats -> OOF 0.7657 top1acc 0.5751
+   v3 + 0.4*tcn_stats -> OOF 0.7636 top1acc 0.5732
+  tcn_pure fold0 0.7189
+  tcn_pure fold1 0.7464
+  tcn_pure fold2 0.7141
+  tcn_pure fold3 0.7054
+  tcn_pure fold4 0.7172
+[tcn_pure] OOF 0.7205 top1acc 0.4986
+   v3 + 0.2*tcn_pure -> OOF 0.7698 top1acc 0.5813
+   v3 + 0.3*tcn_pure -> OOF 0.7661 top1acc 0.5751
+   v3 + 0.4*tcn_pure -> OOF 0.7611 top1acc 0.5670
+  ttx_stats fold0 0.7230
+  ttx_stats fold1 0.7647
+  ttx_stats fold2 0.7213
+  ttx_stats fold3 0.7308
+  ttx_stats fold4 0.7121
+[ttx_stats] OOF 0.7307 top1acc 0.5304
+   v3 + 0.2*ttx_stats -> OOF 0.7688 top1acc 0.5789
+   v3 + 0.3*ttx_stats -> OOF 0.7653 top1acc 0.5760
+   v3 + 0.4*ttx_stats -> OOF 0.7616 top1acc 0.5760
+EXIT 0
